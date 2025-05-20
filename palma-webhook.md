@@ -23,18 +23,7 @@ This document outlines the webhook and real-time communication systems implement
     `code={xc_code} strategy_id=MyStrategy demo=YES command=sell exchange=binance coinmarket=BTCUSDT amount=0.05`
     Webhook URL: `{SERVER_NAME}/xc`
 
-## 2. Viber Integration Webhook
-
--   **File:** `palma/palma_whatsapp.py` (primary implementation)
--   **File (Legacy/Reference):** `palma/palma_social_channels.py` (contains commented-out Viber webhook setup)
--   **Endpoint:** `https://realtime.palmabot.com/viber`
--   **Purpose:** Enables PalmaBot to receive and send messages via the Viber platform.
--   **Functionality:**
-    -   The `myViber` class in `palma/palma_whatsapp.py` configures the Viber bot with an authentication token and sets up a webhook to `https://realtime.palmabot.com/viber`.
-    -   This allows PalmaBot to listen for events (like incoming messages) from Viber users.
-    -   The `text_message` method is used to format outgoing text messages to be sent via Viber.
-
-## 3. Trading Dashboard WebSocket
+## 2. Trading Dashboard WebSocket
 
 -   **File:** `palma/palma_trading_dashboard.py`
 -   **Purpose:** Provides real-time communication capabilities for the Palma Trading Dashboard.
@@ -43,11 +32,11 @@ This document outlines the webhook and real-time communication systems implement
     -   It listens on a host and port defined in the configuration (`WEBSOCKET_HOST`, `WEBSOCKET_PORT_PTD`).
     -   **User Connection Management:**
         -   Users connect to the WebSocket, typically identified by a `user_uuid`.
-        -   Supports `prijava` (register/login) and `odjava` (unregister/logout) events from clients.
+        -   Supports (register/login) and (unregister/logout) events from clients.
         -   Maintains a record of connected users (`CONNECTED_USERS`).
     -   **Message Handling:**
         -   Receives messages from connected clients (JSON format).
-        -   A `message_consumer_task` likely handles processing messages from a queue (e.g., Redis Pub/Sub via `pubsub.start_consumer_async`) to push updates to the relevant connected clients.
+        -   A `message_consumer_task` handles processing messages from a queue (e.g., Redis Pub/Sub via `pubsub.start_consumer_async`) to push updates to the relevant connected clients.
         -   This allows the trading dashboard to display real-time updates for orders, market data, or other relevant trading information.
     -   This is not a traditional HTTP webhook but achieves real-time, bidirectional communication between the server and the trading dashboard clients.
 
