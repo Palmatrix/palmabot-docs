@@ -51,20 +51,6 @@ This document outlines the webhook and real-time communication systems implement
         -   This allows the trading dashboard to display real-time updates for orders, market data, or other relevant trading information.
     -   This is not a traditional HTTP webhook but achieves real-time, bidirectional communication between the server and the trading dashboard clients.
 
-## Security Considerations for Webhooks
-
--   **Authentication/Authorization:**
-    -   The `/xc` webhook relies on a generated `code` for identifying the user. Ensure this code is securely generated and managed.
-    -   Viber webhooks use an `auth_token` for the bot configuration.
--   **Input Validation:**
-    -   All incoming webhook data (e.g., parameters in the `/xc` connection string, messages from Viber) should be strictly validated to prevent injection attacks or unexpected behavior.
--   **HTTPS:**
-    -   All webhook endpoints (e.g., `https://realtime.palmabot.com/viber`, `{SERVER_NAME}/xc`) must use HTTPS to protect data in transit.
--   **Rate Limiting:**
-    -   Consider implementing rate limiting on webhook endpoints to prevent abuse.
--   **Logging and Monitoring:**
-    -   Maintain comprehensive logs for all webhook requests and responses for auditing and troubleshooting. The current implementation shows logging for the `/xc` endpoint.
-
 ## Sequence Diagrams
 
 ### 1. PalmaBot Executor Webhook (`/xc`)
@@ -144,8 +130,3 @@ sequenceDiagram
     DashboardClient->>DashboardClient: Update UI with new data
     deactivate DashboardClient
 ```
-
-## Future Enhancements/Documentation
-
--   Specific error codes and responses for the `/xc` webhook.
--   More information on the types of messages and data exchanged over the Trading Dashboard WebSocket.
